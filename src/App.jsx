@@ -12,6 +12,22 @@ export default function App() {
     const [displayed_src, setSrc] = useState("images/pic1.jpg")
     const [displayed_alt, setAlt] = useState("Closeup of a human eye")
 
+    const button = document.getElementsByTagName("button");
+    const overlay = document.querySelector("div.overlay");
+
+    function clickHadle() {
+        if (button.getAttribute("className") === "dark") {
+            button.setAttribute("className", "light")
+            button.textContent = "lighten"
+            overlay.style.backgroundcolor(rgba(0, 0, 0, 0.5))
+        } else {
+            alert("aa")
+            button.setAttribute("className", "dark")
+            button.textContent = "darken"
+            overlay.style.backgroundcolor(rgba(0, 0, 0, 0))
+        }
+    }
+
     return (
       <>
         <h1>Image gallery example</h1>
@@ -22,12 +38,12 @@ export default function App() {
             alt={displayed_alt}
           />
           <div className="overlay"></div>
-          <button className="dark">Darken</button>
+          <button className="dark" onClick={clickHadle}>Darken</button>
         </div>
-        <div className="thumb-bar" onClick={() => {setSrc(images[1].src), setAlt(images[1].alt)}}>
+        <div className="thumb-bar">
             {images.map((currentValue) => {
                 return (
-                    <img key={currentValue} src={currentValue.src} currentValue={currentValue.alt} />
+                    <img key={currentValue} src={currentValue.src} alt={currentValue.alt} onClick={() => {setSrc(currentValue.src), setAlt(currentValue.alt)}} />
                 );
             })}
         </div>
